@@ -32,22 +32,15 @@ public class FlyCtrl : MonoBehaviour
     private void WSCtrl()
     {
         float angle = Input.GetAxis("Vertical");
-        transform.Rotate(-1 * Vector3.right, angle * Time.deltaTime * 60f, Space.Self);
+        transform.Rotate(Vector3.right, angle * Time.deltaTime * 60f, Space.Self);
 
-        HorizontalTailLeft.GetComponent<PartRotate>().Rotate(-angle*30);
-        HorizontalTailRight.GetComponent<PartRotate>().Rotate(angle * 30);
+        HorizontalTailLeft.GetComponent<PartRotate>().Rotate(angle*30);
+        HorizontalTailRight.GetComponent<PartRotate>().Rotate(-angle * 30);
     }
     private void ADCtrl()
     {
         float angle = Input.GetAxis("Horizontal");
-        transform.Rotate(-1*Vector3.forward, angle * Time.deltaTime * 120f, Space.Self);
 
-        AileronLeft.GetComponent<PartRotate>().Rotate(-angle*30);
-        AileronRight.GetComponent<PartRotate>().Rotate(-angle*30);
-    }
-    private void QECtrl()
-    {
-        float angle = Input.GetAxis("Roll");
         if (angle == 0)
         {
             camFollow.ADon = false;
@@ -56,6 +49,16 @@ public class FlyCtrl : MonoBehaviour
         {
             camFollow.ADon = true;
         }
+
+        transform.Rotate(-1*Vector3.forward, angle * Time.deltaTime * 120f, Space.Self);
+
+        AileronLeft.GetComponent<PartRotate>().Rotate(-angle*30);
+        AileronRight.GetComponent<PartRotate>().Rotate(-angle*30);
+    }
+    private void QECtrl()
+    {
+        float angle = Input.GetAxis("Roll");
+        
         transform.Rotate(1*Vector3.up, angle * Time.deltaTime * 60f, Space.Self);
 
         VerticalTail.GetComponent<PartRotate>().Rotate(-angle * 30);

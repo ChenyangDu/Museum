@@ -8,10 +8,11 @@ public class CamFollow : MonoBehaviour
     public Transform Plane;
 
     public bool ADon = false;
+    private float rotateSpeed = 2f;
 
     private void Awake()
     {
-        Pos.transform.position = transform.position;
+        //Pos.transform.position = transform.position;
     }
 
     // Update is called once per frame
@@ -26,6 +27,8 @@ public class CamFollow : MonoBehaviour
 
         transform.position = Pos.transform.TransformPoint(targetPos);
 
-        transform.rotation = Quaternion.Lerp(transform.rotation, Pos.rotation, (ADon ? 10f : 2f) * Time.deltaTime);
+        rotateSpeed = Mathf.Lerp(rotateSpeed, (ADon ? 2f : 10f), 2*Time.deltaTime);
+        
+        transform.rotation = Quaternion.Lerp(transform.rotation, Pos.rotation, rotateSpeed * Time.deltaTime);
     }
 }
